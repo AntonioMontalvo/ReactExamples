@@ -1,7 +1,7 @@
 module.exports = {
   
   // This code will be compiled 
-  //This directory contains two examples built with React. Swap entry: the path with either "./server.js" or "./app.js". First run webpack and then run  node server.js.
+  //This directory contains two examples built with React. Swap entry: the path with either "./setState.js" or "./app.js". First run webpack and then run  node server.js.
   entry: "./setState.js",
 
   // Then output into this file

@@ -9752,168 +9752,129 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var React = __webpack_require__(82);
 var ReactDOM = __webpack_require__(98);
 
-//Remember that JavaScript expressions are embedded in JSX using curly braces.
-//We can declare and add variables into our elements with JSX.
-var favBeer = "Mc Leod's Better Days";
-var location = "Van Nuys";
-var numOfBeers = 1 + 1;
-var element = "{What ever you see in curly braces like me is an embedded expression.}";
+//define the class, add constructor, super() and state. Within state we initialize some properties
+//we also initialize two methods and use bind(this) to bind this to the instance.
 
-var Wine = function (_React$Component) {
-	_inherits(Wine, _React$Component);
+var Color = function (_React$Component) {
+	_inherits(Color, _React$Component);
 
-	function Wine(props) {
-		_classCallCheck(this, Wine);
+	function Color(props) {
+		_classCallCheck(this, Color);
 
-		var _this = _possibleConstructorReturn(this, (Wine.__proto__ || Object.getPrototypeOf(Wine)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (Color.__proto__ || Object.getPrototypeOf(Color)).call(this, props));
 
 		_this.state = {
-			lightBodied: "Pinot Noir 2015",
-			sweet: "Riesling",
-			mediumBodied: "Syrah",
-			dryAndRich: "Chardonay 2016"
+			favorite: "red",
+			divStyle: {
+				"width": "85%",
+				"height": "100px"
+			},
+			value: "blue"
 		};
+		_this.handleChange = _this.handleChange.bind(_this);
+		_this.handleClick = _this.handleClick.bind(_this);
 		return _this;
 	}
 
-	_createClass(Wine, [{
+	_createClass(Color, [{
+		key: "handleClick",
+		value: function handleClick(e) {
+			//this method is to demonstrate a button
+			e.preventDefault();
+			console.log("I've been cliked");
+		}
+	}, {
+		key: "handleChange",
+		value: function handleChange(event) {
+			//here we use setState to update value
+			//we use event.target.value to grab the value of an input, in this case for the color
+			this.setState({ value: event.target.value });
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			return React.createElement(
 				"div",
-				{ className: "wine" },
+				{ className: "container" },
 				React.createElement(
-					"h2",
-					null,
-					"Hi I'm the 'Wine' Component"
+					"div",
+					{ className: "row" },
+					React.createElement(
+						"div",
+						{ className: "col-md-6" },
+						React.createElement(
+							"h1",
+							null,
+							"Welcome back Bootstrap"
+						),
+						React.createElement(
+							"p",
+							null,
+							"As I said before things were going to visually change. Now we bring boostrap into the mix."
+						),
+						React.createElement(
+							"p",
+							null,
+							"Pay close attention to the syntax. The main thing is that now we are force to use ",
+							React.createElement(
+								"mark",
+								null,
+								"className"
+							),
+							" for the class attribute."
+						),
+						React.createElement(
+							"p",
+							null,
+							"The default color is blue. Every time you change the color and submit the state of the Color component will be updated and the change will update the UI as well."
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "col-md-6" },
+						React.createElement(
+							"h3",
+							null,
+							"Select your color here"
+						),
+						React.createElement("input", { type: "color", id: "guestColor", onChange: this.handleChange }),
+						React.createElement(
+							"h3",
+							null,
+							"See it change right away"
+						),
+						React.createElement("div", { id: "new-color", style: { "backgroundColor": this.state.value, "width": this.state.divStyle.width, "height": this.state.divStyle.height } })
+					)
 				),
 				React.createElement(
-					"p",
-					null,
-					"Welcome to the Wine Club. We are proud to present our ",
-					this.state.mediumBodied,
-					" and ",
-					this.state.dryAndRich,
-					"."
+					"div",
+					{ className: "row" },
+					React.createElement(
+						"div",
+						{ className: "col-md-12" },
+						React.createElement(
+							"h1",
+							null,
+							"A simple button"
+						),
+						React.createElement(
+							"button",
+							{ type: "button", className: "bt btn-success", onClick: this.handleClick },
+							"Click Me and go to console."
+						)
+					)
 				)
 			);
 		}
 	}]);
 
-	return Wine;
+	return Color;
 }(React.Component);
-
-//We can define another component that will refer to the Wine component in its output.
-
-
-var Favorites = function (_React$Component2) {
-	_inherits(Favorites, _React$Component2);
-
-	function Favorites() {
-		_classCallCheck(this, Favorites);
-
-		return _possibleConstructorReturn(this, (Favorites.__proto__ || Object.getPrototypeOf(Favorites)).apply(this, arguments));
-	}
-
-	_createClass(Favorites, [{
-		key: "render",
-		value: function render() {
-			return React.createElement(
-				"div",
-				{ className: "favorites" },
-				React.createElement(
-					"h1",
-					null,
-					"I'm the 'Main' component. I render the 'Wine' and 'Person' components."
-				),
-				React.createElement(
-					"h2",
-					null,
-					"Santa Maria's Wine Company. Heading for the 'Wine' component."
-				),
-				React.createElement(Wine, null),
-				React.createElement(
-					"h2",
-					null,
-					"Comments about our guests. Heading for the 'Person' component"
-				),
-				React.createElement(Person, { name: "Mary", opinion: "tempranillo 2015" })
-			);
-		}
-	}]);
-
-	return Favorites;
-}(React.Component);
-
-//And yet another component, this time not using an  ES6 class. It will be used by the Wine Component.
-//To reuse code between components we use the special {props.children} to pass arbitrary children elements to them.
-
-
-function Person(props) {
-	return React.createElement(
-		"div",
-		{ className: "person" },
-		React.createElement(
-			"h2",
-			null,
-			"I'm the 'Person' component."
-		),
-		React.createElement(
-			"p",
-			null,
-			"Hi, my name is ",
-			props.name,
-			" and I love ",
-			props.opinion,
-			"."
-		),
-		props.children,
-		React.createElement(
-			"p",
-			null,
-			"The sentence above was constructed with values given to me from the Favorites component using props.children"
-		)
-	);
-}
 
 ReactDOM.render(React.createElement(
 	"div",
-	{ className: "beer" },
-	React.createElement(
-		"h1",
-		null,
-		"ReactDOM.()"
-	),
-	React.createElement(
-		"p",
-		null,
-		"It renders an element and all other elements contained within this root element. Like me!"
-	),
-	React.createElement(
-		"p",
-		null,
-		"I'm another element. My favorite beer is ",
-		favBeer,
-		", Mc Leod's brewery is located in ",
-		location,
-		"."
-	),
-	React.createElement(
-		"p",
-		null,
-		element
-	),
-	React.createElement(
-		"p",
-		null,
-		"All elements redered until now are not components. Pay attention to how the following components are nested."
-	),
-	React.createElement(Favorites, null),
-	React.createElement(
-		"h6",
-		null,
-		"*I know this looks kind of bland but we'll fix that next."
-	)
+	null,
+	React.createElement(Color, null)
 ), document.getElementById("app"));
 
 /***/ }),
